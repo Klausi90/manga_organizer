@@ -1,0 +1,25 @@
+<div class="row">
+  <h1>Mangas</h1>
+</div>
+
+<div class="row">
+  <div class="col-12">´
+    <div class="card">
+      <!--    <img class="card-img-top" data-src="holder.js/100x180/?text=Image cap" alt="Card image cap">-->
+      <div class="card-body">
+        <div class="form-group">
+          <label for="Manga">Neu erstellen</label>
+          <%= form_with model: Manga.new, url: manga_view_new_path do |form| %>
+            <%= form.text_field :name, placeholder: 'Name' %>
+            <%= form.submit %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="row">
+  <%=  render partial: 'manga', collection:  Manga.all %>
+</div>

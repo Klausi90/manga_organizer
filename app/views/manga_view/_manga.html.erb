@@ -1,0 +1,50 @@
+<div class="col-6">
+
+  <div class="card">
+<!--    <img class="card-img-top" data-src="holder.js/100x180/?text=Image cap" alt="Card image cap">-->
+    <div class="card-body">
+      <h4 class="card-title"><%=manga.name %> - <%=manga.language.to_s.titleize %></h4>
+    </div>
+    <div class="card-body">
+      <p class="card-text">Anzahl der Kapitel: <%=manga.chapters.count %> </p>
+      <p class="card-text">Aktuelles kapitel: <%= manga.current_chapter&.number %> <%= manga.current_chapter&.name %></p>
+      <p class="card-text">Download Status: <%= manga.chapters.pending.count %> /  <%= manga.chapters.success.count %></p>
+      <p class="card-text">Errors: <%= manga.chapters.error.count %></p>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">
+        <p>
+          Download
+        </p>
+
+        <%=link_to 'aktuelles Kapitel',
+                   { controller: :scrape, action: :scrape_chapter, id: manga.id },
+                   method: :get,
+                   class: "btn btn-info" %>
+
+        <%=link_to 'alle Kapitel',
+                   { controller: :scrape, action: :bulk_scrape_chapter, id: manga.id },
+                   method: :get,
+                   class: "btn btn-info" %>
+      </li>
+      <li class="list-group-item">
+        <%=link_to 'löschen',
+                   { controller: :manga_view, action: :delete, id: manga.id },
+                   data: { confirm: "Are you sure?" },
+                   method: :delete,
+                   class: "btn btn-danger" %>
+        <%=link_to 'reset',
+                   { controller: :manga_view, action: :reset, id: manga.id },
+                   data: { confirm: "Are you sure?" },
+                   method: :get,
+                   class: "btn btn-danger" %>
+
+        <%=link_to 'Kapitelliste aktualisieren',
+                   { controller: :scrape, action: :scrape_chapter_list, id: manga.id },
+                   method: :get,
+                   class: "btn btn-info" %>
+
+      </li>
+    </ul>
+  </div>
+</div>
